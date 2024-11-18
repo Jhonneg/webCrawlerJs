@@ -61,7 +61,7 @@ test("getURLsFromHTML relative", () => {
   expect(actual).toEqual(expected);
 });
 
-test("getURLsFromHTML relative", () => {
+test("getURLsFromHTML multiple", () => {
   const inputHTMLBody = /* html */ `
     <html>
       <body>
