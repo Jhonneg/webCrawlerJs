@@ -1,4 +1,4 @@
-const { normalizeURL } = require("./crawl");
+const { normalizeURL, getURLsFromHTML } = require("./crawl");
 const { test, expect } = require("@jest/globals");
 
 test("normalizeURL strip protocol", () => {
@@ -29,3 +29,18 @@ test("normalizeURL strip http", () => {
   expect(actual).toEqual(expected);
 });
 
+test("getURLsFromHTML", () => {
+  const inputHTMLBody = /* html */ `
+    <html>
+      <body>
+        <a href="http://jhonneg.is-a.dev/">
+          Portfolio
+        </a>
+      </body>
+    </html>
+  `;
+  const inputBaseURL = "http://jhonneg.is-a.dev";
+  const actual = getURLsFromHTML(inputHTMLBody, inputBaseURL);
+  const expected = ["http://jhonneg.is-a.dev/"];
+  expect(actual).toEqual(expected);
+});
