@@ -5,7 +5,21 @@ function getURLsFromHTML(htmlBody, baseURL) {
   const dom = new JSDOM(htmlBody);
   const linkElements = dom.window.document.querySelectorAll("a");
   for (const linkElement of linkElements) {
-    urls.push(linkElement.href);
+    if (linkElement.href.slice(0, 1) === "/") {
+      try {
+        const urlObj = new URL(`${baseURL}${linkElement.href}`);
+        urls.push(urlObj.href);
+      } catch (err) {
+        console.log(`Error with relative url: ${err.message}`);
+      }
+    } else {
+      try {
+        const urlObj = new URL(linkElement.href);
+        urls.push(urlObj.href);
+      } catch (err) {
+        console.log(`Error with relative url: ${err.message}`);
+      }
+    }
   }
   return urls;
 }
